@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>JavaHub</title>
+
+    <style>
+
+        /* =========================================
+           ROOT VARIABLES
+        ========================================= */
+
+        :root{
+
+            --bg:#0d1117;
+            --sidebar:#11161d;
+            --card:#161b22;
+
+            --text:white;
+            --secondary:#8b949e;
+
+            --border:#2b3440;
+
+            --meta:#0d1117;
+
+            --blue:#58a6ff;
+            --green:#3fb950;
+            --red:#f85149;
+            --yellow:#d29922;
+
+        }
+
+        /* =========================================
+           LIGHT MODE
+        ========================================= */
+
+        .light-mode{
+
+            --bg:#f4f7fb;
+            --sidebar:white;
+            --card:white;
+
+            --text:#111827;
+            --secondary:#4b5563;
+
+            --border:#d1d5db;
+
+            --meta:#eef2f7;
+
+        }
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+
+            background:var(--bg);
+            color:var(--text);
+
+            display:flex;
+
+            min-height:100vh;
+
+            overflow-x:hidden;
+
+            transition:0.35s;
+        }
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar{
+
+            width:260px;
+
+            background:var(--sidebar);
+
+            border-right:1px solid var(--border);
+
+            padding:25px;
+
+            transition:0.35s;
+        }
+
+        .logo{
+
+            font-size:30px;
+
+            font-weight:bold;
+
+            margin-bottom:35px;
+
+            color:var(--blue);
+
+            letter-spacing:1px;
+        }
+
+        .logo span{
+            color:var(--green);
+        }
+
+        .sidebar-title{
+
+            color:var(--secondary);
+
+            margin-bottom:15px;
+
+            font-size:13px;
+
+            letter-spacing:1px;
+        }
+
+        .nav{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:12px;
+        }
+
+        .nav button{
+
+            background:var(--card);
+
+            border:1px solid var(--border);
+
+            color:var(--text);
+
+            padding:14px;
+
+            border-radius:14px;
+
+            cursor:pointer;
+
+            transition:0.25s;
+
+            text-align:left;
+
+            font-size:15px;
+        }
+
+        .nav button:hover{
+
+            transform:translateX(5px);
+
+            background:var(--blue);
+
+            color:white;
+        }
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .main{
+
+            flex:1;
+
+            padding:30px;
+        }
+
+        .topbar{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            margin-bottom:35px;
+
+            gap:20px;
+        }
+
+        .title{
+
+            font-size:34px;
+
+            font-weight:bold;
+        }
+
+        .title span{
+            color:var(--blue);
+        }
+
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        .search{
+
+            width:320px;
+
+            padding:14px 16px;
+
+            border-radius:14px;
+
+            border:1px solid var(--border);
+
+            background:var(--card);
+
+            color:var(--text);
+
+            outline:none;
+
+            transition:0.25s;
+        }
+
+        .search:focus{
+
+            border-color:var(--blue);
+
+            box-shadow:0 0 15px rgba(88,166,255,0.4);
+        }
+
+        /* =========================================
+           THEME TOGGLE
+        ========================================= */
+
+        .theme-toggle{
+
+            width:55px;
+            height:55px;
+
+            border-radius:50%;
+
+            border:none;
+
+            cursor:pointer;
+
+            background:var(--card);
+
+            color:var(--text);
+
+            border:1px solid var(--border);
+
+            font-size:20px;
+
+            transition:0.3s;
+        }
+
+        .theme-toggle:hover{
+
+            transform:rotate(180deg) scale(1.08);
+
+            box-shadow:0 0 15px rgba(88,166,255,0.4);
+        }
+
+        /* =========================================
+           GRID
+        ========================================= */
+
+        .grid{
+
+            display:grid;
+
+            grid-template-columns:
+    repeat(auto-fill,minmax(300px,1fr));
+
+            gap:35px;
+        }
+
+        /* =========================================
+           CARD BASE
+        ========================================= */
+
+        .card{
+
+            height:380px;
+
+            border-radius:22px;
+
+            position:relative;
+
+            padding:22px;
+
+            overflow:hidden;
+
+            transition:0.35s;
+
+            background:var(--card);
+
+            border:2px solid var(--border);
+
+            display:flex;
+
+            flex-direction:column;
+        }
+
+        .card:hover{
+
+            transform:translateY(-10px);
+        }
+
+        /* =========================================
+           CARD HOVER COLORS
+        ========================================= */
+
+        .blue:hover{
+
+            border-color:var(--blue);
+
+            box-shadow:
+                    0 0 25px rgba(88,166,255,0.35);
+        }
+
+        .green:hover{
+
+            border-color:var(--green);
+
+            box-shadow:
+                    0 0 25px rgba(63,185,80,0.35);
+        }
+
+        .red:hover{
+
+            border-color:var(--red);
+
+            box-shadow:
+                    0 0 25px rgba(248,81,73,0.35);
+        }
+
+        .yellow:hover{
+
+            border-color:var(--yellow);
+
+            box-shadow:
+                    0 0 25px rgba(210,153,34,0.35);
+        }
+
+        /* =========================================
+           RGB CARD
+        ========================================= */
+
+        .rgb{
+            position:relative;
+        }
+
+        .rgb::before{
+
+            content:"";
+
+            position:absolute;
+
+            inset:-3px;
+
+            border-radius:24px;
+
+            background:linear-gradient(
+                    45deg,
+                    red,
+                    orange,
+                    yellow,
+                    lime,
+                    cyan,
+                    blue,
+                    violet,
+                    red
+            );
+
+            background-size:400%;
+
+            z-index:-1;
+
+            opacity:0;
+
+            transition:0.4s;
+
+            animation:rgb 8s linear infinite;
+        }
+
+        .rgb:hover::before{
+            opacity:1;
+        }
+
+        .rgb:hover{
+
+            box-shadow:
+                    0 0 20px red,
+                    0 0 40px blue,
+                    0 0 60px lime;
+        }
+
+        .rgb:hover .text-title{
+
+            animation:rgbText 3s linear infinite;
+        }
+
+        @keyframes rgb{
+
+            0%{
+                background-position:0 0;
+            }
+
+            50%{
+                background-position:300% 0;
+            }
+
+            100%{
+                background-position:0 0;
+            }
+
+        }
+
+        @keyframes rgbText{
+
+            0%{color:red;}
+            20%{color:orange;}
+            40%{color:yellow;}
+            60%{color:lime;}
+            80%{color:cyan;}
+            100%{color:violet;}
+
+        }
+
+        /* =========================================
+           CATEGORY
+        ========================================= */
+
+        .category{
+
+            display:inline-block;
+
+            padding:7px 12px;
+
+            border-radius:999px;
+
+            font-size:12px;
+
+            font-weight:bold;
+
+            margin-bottom:18px;
+
+            background:#21262d;
+
+            color:var(--blue);
+
+            width:fit-content;
+        }
+
+        /* =========================================
+           RARITY BADGES
+        ========================================= */
+
+        .rarity{
+
+            position:absolute;
+
+            top:18px;
+            right:18px;
+
+            padding:6px 12px;
+
+            border-radius:999px;
+
+            font-size:11px;
+
+            font-weight:bold;
+
+            letter-spacing:1px;
+        }
+
+        .common{
+
+            background:#30363d;
+
+            color:#c9d1d9;
+        }
+
+        .rare{
+
+            background:#1f6feb;
+
+            color:white;
+        }
+
+        .epic{
+
+            background:#7c3aed;
+
+            color:white;
+        }
+
+        .legendary{
+
+            background:
+                    linear-gradient(90deg,orange,gold);
+
+            color:black;
+
+            box-shadow:0 0 12px orange;
+        }
+
+        .mythic{
+
+            background:
+                    linear-gradient(
+                            90deg,
+                            red,
+                            violet,
+                            cyan
+                    );
+
+            color:white;
+
+            animation:mythicGlow 4s linear infinite;
+        }
+
+        @keyframes mythicGlow{
+
+            0%{
+                box-shadow:0 0 10px red;
+            }
+
+            50%{
+                box-shadow:0 0 18px cyan;
+            }
+
+            100%{
+                box-shadow:0 0 10px violet;
+            }
+
+        }
+
+        /* =========================================
+           TEXT
+        ========================================= */
+
+        .text-title{
+
+            font-size:28px;
+
+            font-weight:bold;
+
+            margin-bottom:12px;
+
+            transition:0.3s;
+        }
+
+        .text-body{
+
+            color:var(--secondary);
+
+            line-height:1.6;
+
+            margin-bottom:18px;
+        }
+
+        /* =========================================
+           METADATA
+        ========================================= */
+
+        .metadata{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:8px;
+
+            margin-top:12px;
+
+            transition:0.35s;
+        }
+
+        .meta{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            font-size:13px;
+
+            padding:9px 11px;
+
+            border-radius:10px;
+
+            background:var(--meta);
+
+            color:var(--text);
+
+            border:1px solid var(--border);
+        }
+
+        /* =========================================
+           BUTTON
+        ========================================= */
+
+        .card-button{
+
+            position:absolute;
+
+            bottom:-70px;
+
+            left:50%;
+
+            transform:translateX(-50%);
+
+            width:82%;
+
+            border:none;
+
+            border-radius:14px;
+
+            padding:14px;
+
+            cursor:pointer;
+
+            font-size:15px;
+
+            font-weight:bold;
+
+            transition:0.35s;
+
+            color:white;
+
+            opacity:0;
+        }
+
+        .card:hover .card-button{
+
+            bottom:20px;
+
+            opacity:1;
+        }
+
+        .card:hover .metadata{
+
+            transform:translateY(-8px);
+        }
+
+        /* BUTTON COLORS */
+
+        .blue .card-button{
+            background:#1f6feb;
+        }
+
+        .green .card-button{
+            background:#238636;
+        }
+
+        .red .card-button{
+            background:#da3633;
+        }
+
+        .yellow .card-button{
+            background:#9e6a03;
+        }
+
+        .rgb .card-button{
+
+            background:linear-gradient(
+                    90deg,
+                    red,
+                    orange,
+                    yellow,
+                    lime,
+                    cyan,
+                    blue,
+                    violet
+            );
+        }
+
+        .card-button:hover{
+
+            transform:
+                    translateX(-50%)
+                    scale(1.05);
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media(max-width:850px){
+
+            body{
+                flex-direction:column;
+            }
+
+            .sidebar{
+
+                width:100%;
+
+                border-right:none;
+
+                border-bottom:1px solid var(--border);
+            }
+
+            .topbar{
+
+                flex-direction:column;
+
+                align-items:flex-start;
+            }
+
+            .search{
+                width:100%;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        Java<span>Hub</span>
+    </div>
+
+    <div class="sidebar-title">
+        CATEGORIES
+    </div>
+
+    <div class="nav">
+
+        <button onclick="filterProjects('all')">
+            📁 All Projects
+        </button>
+
+        <button onclick="filterProjects('game')">
+            🎮 Games
+        </button>
+
+        <button onclick="filterProjects('ai')">
+            🤖 AI
+        </button>
+
+        <button onclick="filterProjects('tool')">
+            🛠 Tools
+        </button>
+
+        <button onclick="filterProjects('special')">
+            ✨ Legendary
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     MAIN CONTENT
+========================================= -->
+
+<div class="main">
+
+    <!-- =========================================
+         TOPBAR
+    ========================================= -->
+
+    <div class="topbar">
+
+        <div class="title">
+            My <span>Java Projects</span>
+        </div>
+
+        <input
+                type="text"
+                class="search"
+                placeholder="Search projects..."
+                id="searchInput"
+        >
+
+        <button
+                class="theme-toggle"
+                onclick="toggleTheme()"
+        >
+            🌙
+        </button>
+
+    </div>
+
+    <!-- =========================================
+         PROJECT GRID
+    ========================================= -->
+
+    <div class="grid" id="projectGrid">
+
+        <!-- =========================================
+             CARD 1
+        ========================================= -->
+
+        <div
+                class="card blue"
+                data-category="game"
+        >
+
+            <div class="rarity rare">
+                RARE
+            </div>
+
+            <div class="category">
+                GAME ENGINE
+            </div>
+
+            <div class="text-title">
+                MeshMap Engine
+            </div>
+
+            <div class="text-body">
+                2D Java game engine with rendering,
+                collision and physics systems.
+            </div>
+
+            <div class="metadata">
+
+                <div class="meta">
+                    <span>📦 File Size</span>
+                    <span>18 MB</span>
+                </div>
+
+                <div class="meta">
+                    <span>🧠 Language</span>
+                    <span>Java</span>
+                </div>
+
+                <div class="meta">
+                    <span>📅 Updated</span>
+                    <span>2 Days Ago</span>
+                </div>
+
+            </div>
+
+            <a href="projects/MeshMap.zip" download>
+
+                <button class="card-button">
+                    Download
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- =========================================
+             CARD 2
+        ========================================= -->
+
+        <div
+                class="card green"
+                data-category="ai"
+        >
+
+            <div class="rarity epic">
+                EPIC
+            </div>
+
+            <div class="category">
+                AI SYSTEM
+            </div>
+
+            <div class="text-title">
+                Jarvis Assistant
+            </div>
+
+            <div class="text-body">
+                Smart local assistant with command
+                parsing and automation systems.
+            </div>
+
+            <div class="metadata">
+
+                <div class="meta">
+                    <span>📦 File Size</span>
+                    <span>9 MB</span>
+                </div>
+
+                <div class="meta">
+                    <span>⚡ Version</span>
+                    <span>v2.1</span>
+                </div>
+
+                <div class="meta">
+                    <span>🟢 Status</span>
+                    <span>Stable</span>
+                </div>
+
+            </div>
+
+            <a href="projects/Jarvis.zip" download>
+
+                <button class="card-button">
+                    Download
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- =========================================
+             CARD 3
+        ========================================= -->
+
+        <div
+                class="card red"
+                data-category="tool"
+        >
+
+            <div class="rarity legendary">
+                LEGENDARY
+            </div>
+
+            <div class="category">
+                DEVELOPMENT TOOL
+            </div>
+
+            <div class="text-title">
+                MiniIDE
+            </div>
+
+            <div class="text-body">
+                Lightweight custom IDE with file
+                explorer and code execution.
+            </div>
+
+            <div class="metadata">
+
+                <div class="meta">
+                    <span>📦 File Size</span>
+                    <span>27 MB</span>
+                </div>
+
+                <div class="meta">
+                    <span>🖥 Platform</span>
+                    <span>Desktop</span>
+                </div>
+
+                <div class="meta">
+                    <span>🔥 Popularity</span>
+                    <span>High</span>
+                </div>
+
+            </div>
+
+            <a href="projects/MiniIDE.zip" download>
+
+                <button class="card-button">
+                    Download
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- =========================================
+             RGB MYTHIC CARD
+        ========================================= -->
+
+        <div
+                class="card rgb"
+                data-category="special"
+        >
+
+            <div class="rarity mythic">
+                MYTHIC
+            </div>
+
+            <div class="category">
+                EXPERIMENTAL ENGINE
+            </div>
+
+            <div class="text-title">
+                Fractal Core
+            </div>
+
+            <div class="text-body">
+                Ultra advanced AI engine with
+                networking and rendering systems.
+            </div>
+
+            <div class="metadata">
+
+                <div class="meta">
+                    <span>📦 File Size</span>
+                    <span>61 MB</span>
+                </div>
+
+                <div class="meta">
+                    <span>👑 Rank</span>
+                    <span>S Tier</span>
+                </div>
+
+                <div class="meta">
+                    <span>⚠ Complexity</span>
+                    <span>Extreme</span>
+                </div>
+
+            </div>
+
+            <a href="projects/FractalCore.zip" download>
+
+                <button class="card-button">
+                    Download
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+<script>
+    function toggleTheme(){
+
+        document.body.classList.toggle(
+            "light-mode"
+        );
+
+    }
+
+    /* ===================================
+       CATEGORY FILTER
+    =================================== */
+
+    function filterProjects(category){
+
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+
+            if(category === 'all'){
+                card.style.display = 'block';
+            }
+            else{
+
+                if(card.dataset.category === category){
+                    card.style.display = 'block';
+                }
+                else{
+                    card.style.display = 'none';
+                }
+
+            }
+
+        });
+
+    }
+
+    /* ===================================
+       SEARCH SYSTEM
+    =================================== */
+
+    const searchInput =
+        document.getElementById('searchInput');
+
+    searchInput.addEventListener('input', () => {
+
+        const value =
+            searchInput.value.toLowerCase();
+
+        const cards =
+            document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+
+            const text =
+                card.innerText.toLowerCase();
+
+            if(text.includes(value)){
+                card.style.display = 'block';
+            }
+            else{
+                card.style.display = 'none';
+            }
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
